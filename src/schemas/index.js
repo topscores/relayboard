@@ -3,36 +3,54 @@ import {
   GraphQLObjectType,
   GraphQLInt,
   GraphQLString,
+  GraphQLList,
 } from 'graphql'
 
-const PeopleType = new GraphQLObjectType({
-  name: 'People',
+import data from '../data'
+
+const AuthorType = new GraphQLObjectType({
+  name: 'Author',
   fields: {
-    name: {
-      type: GraphQLString,
-      resolve: () => {
-        return "Arnupharp Viratanapanu"
-      },
-    },
-    address: {
-      type: GraphQLString,
-      resolve: () => {
-        return "Condominium"
-      },
-    }
+    id: { type: GraphQLInt },
+    name: { type: GraphQLString },
+    address: { type: GraphQLString },
   },
+})
+
+const TopicType = new GraphQLObjectType({
+  name: 'Topic',
+  fields: {
+    id: { type: GraphQLInt },
+    title: { type: GraphQLString },
+    author: {
+      type: AuthorType,
+      resolve: (topic) => {
+        return data.authors[0]
+      }
+    }
+
+  }
 })
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Root',
   fields: {
-    author: {
-      type: PeopleType,
-      resolve: () => {
-        return {
-          name: "xxx",
-          address: "yyy",
-        }
+    authors: {
+      type: new GraphQLList(AuthorType),
+      args: {
+        id: { type: GraphQLInt },
+      },
+      resolve: (_, {id}) => {
+        return data.authors.filter(author => (author.id === id))
+      }
+    },
+    topics: {
+      type: new GraphQLList(TopicType),
+      args: {
+        id: { type: GraphQLInt }
+      },
+      resolve: (_, {id}) => {
+        return data.topics.filter(topic => (topic.id === id))
       }
     }
   }
