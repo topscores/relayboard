@@ -25,32 +25,21 @@ const TopicType = new GraphQLObjectType({
     author: {
       type: AuthorType,
       resolve: (topic) => {
-        return data.authors[0]
-      }
-    }
-
-  }
+        return data.authors.find((author) => {
+          return author.id === topic.author_id
+        })
+      },
+    },
+  },
 })
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Root',
   fields: {
-    authors: {
-      type: new GraphQLList(AuthorType),
-      args: {
-        id: { type: GraphQLInt },
-      },
-      resolve: (_, {id}) => {
-        return data.authors.filter(author => (author.id === id))
-      }
-    },
     topics: {
       type: new GraphQLList(TopicType),
-      args: {
-        id: { type: GraphQLInt }
-      },
-      resolve: (_, {id}) => {
-        return data.topics.filter(topic => (topic.id === id))
+      resolve: () => {
+        return data.topics
       }
     }
   }
