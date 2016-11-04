@@ -1,4 +1,4 @@
-const authors = [
+const users = [
   {
     id: 1,
     name: 'Arnupharp Viratanapanu',
@@ -38,7 +38,7 @@ const comments = [
 ]
 
 export default {
-  authors,
+  users,
   topics,
   comments,
 }

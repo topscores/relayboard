@@ -8,13 +8,21 @@ import {
 
 import data from '../data'
 
-const AuthorType = new GraphQLObjectType({
-  name: 'Author',
+const UserType = new GraphQLObjectType({
+  name: 'User',
   fields: {
     id: { type: GraphQLInt },
     name: { type: GraphQLString },
-    address: { type: GraphQLString },
   },
+})
+
+const CommentType = new GraphQLObjectType({
+  name: 'Comment',
+  fields: {
+    topic_id: { type: GraphQLInt },
+    text: { type: GraphQLString },
+    commentor_id: { type: GraphQLInt },
+  }
 })
 
 const TopicType = new GraphQLObjectType({
@@ -23,13 +31,19 @@ const TopicType = new GraphQLObjectType({
     id: { type: GraphQLInt },
     title: { type: GraphQLString },
     author: {
-      type: AuthorType,
+      type: UserType,
       resolve: (topic) => {
-        return data.authors.find((author) => {
-          return author.id === topic.author_id
+        return data.users.find((user) => {
+          return user.id === topic.author_id
         })
       },
     },
+    comments: {
+      type: new GraphQLList(CommentType),
+      resolve: (topic) => {
+        return data.comments.filter(comment => comment.topic_id == topic.id)
+      }
+    }
   },
 })
 
