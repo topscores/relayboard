@@ -9,5 +9,6 @@ app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }))
-app.listen(4000)
-console.log('start graphql server at http://localhost:4000')
+app.listen(4000, () => {
+  console.log('start graphql server at http://localhost:4000')
+})
