@@ -9,6 +9,7 @@ import {
 import {
   connectionDefinitions,
   connectionFromArray,
+  connectionArgs,
   nodeDefinitions,
   fromGlobalId,
   globalIdField,
@@ -75,6 +76,7 @@ const TopicType = new GraphQLObjectType({
     },
     comments: {
       type: connectionDefinitions({name: 'Comment', nodeType: CommentType}).connectionType,
+      args: connectionArgs,
       resolve: (topic, args) => {
         return connectionFromArray(data.comments.filter(comment => comment.topic_id == topic.id), args)
       }
@@ -89,11 +91,19 @@ const RootQueryType = new GraphQLObjectType({
     node: nodeField,
     topics: {
       type: connectionDefinitions({name: 'Topic', nodeType: TopicType}).connectionType,
+      args: connectionArgs,
       resolve: (_, args) => {
         return connectionFromArray(data.topics, args)
       }
+    },
+    users: {
+      type: connectionDefinitions({name: 'User', nodeType: UserType}).connectionType,
+      args: connectionArgs,
+      resolve: (_, args) => {
+        return connectionFromArray(data.users, args)
+      }
     }
-  }
+  },
 })
 
 const schema = new GraphQLSchema({

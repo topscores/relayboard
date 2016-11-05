@@ -4,18 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel src -d dist && node ./dist/server.js"
+    "start": "nodemon --watch server/schemas/*.js --exec \"npm run update && babel server -d dist && node ./dist/server.js\"",
+    "update": "babel-node ./server/utils/updateSchema.js",
+    "build:client": "webpack",
+    "dev": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
     "graphql": "^0.7.2",
-    "graphql-relay": "^0.4.3"
+    "graphql-relay": "^0.4.3",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-relay": "^0.9.3"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0"
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-relay-plugin": "^0.9.3",
+    "html-webpack-plugin": "^2.24.1",
+    "nodemon": "^1.11.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   }
 }

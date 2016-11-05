@@ -1,0 +1,110 @@
+schema {
+  query: Root
+}
+
+type Comment implements Node {
+  # The ID of an object
+  id: ID!
+  topic_id: Int
+  text: String
+  commentor_id: Int
+}
+
+# A connection to a list of items.
+type CommentConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [CommentEdge]
+}
+
+# An edge in a connection.
+type CommentEdge {
+  # The item at the end of the edge
+  node: Comment
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Root {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  topics(after: String, first: Int, before: String, last: Int): TopicConnection
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+}
+
+type Topic implements Node {
+  # The ID of an object
+  id: ID!
+  title: String
+  author: User
+  comments(after: String, first: Int, before: String, last: Int): CommentConnection
+}
+
+# A connection to a list of items.
+type TopicConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [TopicEdge]
+}
+
+# An edge in a connection.
+type TopicEdge {
+  # The item at the end of the edge
+  node: Topic
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type User implements Node {
+  # The ID of an object
+  id: ID!
+  name: String
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: User
+
+  # A cursor for use in pagination
+  cursor: String!
+}

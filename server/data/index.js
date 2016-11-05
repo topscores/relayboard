@@ -31,6 +31,30 @@ const users = [
     id: 2,
     name: 'Donald Trunmp',
   }),
+  new User({
+    id: 3,
+    name: 'Hillary Clinton',
+  }),
+  new User({
+    id: 4,
+    name: 'Bill Gate',
+  }),
+  new User({
+    id: 5,
+    name: 'Mark Zuck',
+  }),
+  new User({
+    id: 6,
+    name: 'Elon Musk',
+  }),
+  new User({
+    id: 7,
+    name: 'Brad pitt',
+  }),
+  new User({
+    id: 8,
+    name: 'Donal duck',
+  }),
 ]
 
 const topics = [
