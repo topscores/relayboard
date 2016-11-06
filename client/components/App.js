@@ -12,7 +12,7 @@ const App = ({topics}) => {
   )
 }
 
-const Container = createContainer(App, {
+export default createContainer(App, {
   fragments: {
     topics: () => Relay.QL`
       fragment on TopicConnection {
@@ -35,21 +35,3 @@ const Container = createContainer(App, {
     `
   }
 })
-
-const queries = {
-  name: 'TopicsQuery',
-  params: {},
-  queries: {
-    topics: () => Relay.QL`query {
-      topics
-    }`,
-    users: () => Relay.QL`query {
-      users
-    }`
-  }
-}
-
-export default {
-  Container,
-  queries,
-}
