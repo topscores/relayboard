@@ -5,8 +5,8 @@ import TopicThumbnail from './TopicThumbnail'
 const App = ({topics}) => {
   return (
     <div>
-      {topics.edges.map(edge => 
-        <TopicThumbnail edge={edge} />
+      {topics.edges.map(({node}) => 
+        <TopicThumbnail thumbnail={node} />
       )}
     </div>
   )
@@ -18,10 +18,7 @@ const Container = createContainer(App, {
       fragment on TopicConnection {
         edges {
           node {
-            title
-            author {
-              name
-            }
+            ${TopicThumbnail.getFragment('thumbnail')}
           }
         }
       }
