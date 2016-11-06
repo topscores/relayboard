@@ -10,6 +10,9 @@ const queries = {
     topics: () => Relay.QL`query {
       topics
     }`,
+    users: () => Relay.QL`query {
+      users
+    }`
   }
 }
 Relay.injectNetworkLayer(
