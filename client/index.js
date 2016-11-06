@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Relay from 'react-relay'
 import App from './components/App'
+import TopicsQuery from './queries/TopicsQuery'
+
 
 const queries = {
   name: 'TopicsQuery',
@@ -21,7 +23,7 @@ Relay.injectNetworkLayer(
 ReactDOM.render(
   <Relay.RootContainer
     Component={App}
-    route={queries}
+    route={TopicsQuery}
   />,
   document.getElementById('root')
 )

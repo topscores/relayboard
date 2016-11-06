@@ -6,7 +6,7 @@ const App = ({topics}) => {
   return (
     <div>
       {topics.edges.map(({node}) => 
-        <TopicThumbnail key={node.id} thumbnail={node} />
+        <TopicThumbnail thumbnail={node} />
       )}
     </div>
   )

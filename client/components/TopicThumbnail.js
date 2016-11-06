@@ -4,20 +4,20 @@ import Relay, {createContainer} from 'react-relay'
 const TopicThumbnail = ({thumbnail}) => (
   <div>
     <h2>{thumbnail.title}</h2>
-    <h4>{thumbnail.author.name}</h4>
+    <h3>{thumbnail.author.name}</h3>
   </div>
 )
 
 export default createContainer(TopicThumbnail, {
   fragments: {
     thumbnail: () => Relay.QL`
-       fragments on Topic {
-         id
-         title
-         author {
-           name
-         }
-       }
+      fragment on Topic {
+        id
+        title
+        author {
+          name
+        }
+      }
     `
   }
 })
