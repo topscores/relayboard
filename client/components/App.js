@@ -5,23 +5,20 @@ import TopicThumbnail from './TopicThumbnail'
 const App = ({topics}) => {
   return (
     <div>
-      {topics.edges.map(edge => 
-        <TopicThumbnail edge={edge} />
+      {topics.edges.map(({node}) => 
+        <TopicThumbnail thumbnail={node} />
       )}
     </div>
   )
 }
 
-const Container = createContainer(App, {
+export default createContainer(App, {
   fragments: {
     topics: () => Relay.QL`
       fragment on TopicConnection {
         edges {
           node {
-            title
-            author {
-              name
-            }
+            ${TopicThumbnail.getFragment('thumbnail')}
           }
         }
       }
@@ -38,21 +35,3 @@ const Container = createContainer(App, {
     `
   }
 })
-
-const queries = {
-  name: 'TopicsQuery',
-  params: {},
-  queries: {
-    topics: () => Relay.QL`query {
-      topics
-    }`,
-    users: () => Relay.QL`query {
-      users
-    }`
-  }
-}
-
-export default {
-  Container,
-  queries,
-}
